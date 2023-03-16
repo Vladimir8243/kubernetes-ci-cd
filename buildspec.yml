@@ -1,5 +1,22 @@
 version: 0.2
+env:
+  variables:
+    APP_NAME: "angular-cicd-pipeline-demo"
 phases:
+  install:
+    runtime-versions:
+      nodejs: 16.x
+    commands:
+      - echo install process started
+      - npm install && npm install -g @angular/cli
   build:
     commands:
-      - echo "Hello World"
+      - echo build process started now
+      - cd software/frontend/culturi
+      - ng build --configuration=production
+  post_build:
+    commands:
+      - echo build process finished, we should uplload to S3 now
+      - cd dist/$APP_NAME
+      - ls -la
+      - aws s3 sync . s3://app-culturi --delete
