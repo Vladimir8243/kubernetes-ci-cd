@@ -8,15 +8,15 @@ phases:
       nodejs: 16.x
     commands:
       - echo install process started
-      - npm install && npm install -g @angular/cli
+      - echo "Hello World"
   build:
     commands:
       - echo build process started now
-      - cd software/frontend/culturi
-      - ng build --configuration=production
+      - cd ../../
+      - ls ../*
   post_build:
     commands:
       - echo build process finished, we should uplload to S3 now
-      - cd dist/$APP_NAME
+      - cd ../
       - ls -la
-      - aws s3 sync . s3://app-culturi --delete
+      - echo "aws s3 sync . s3://app-culturi --delete"
